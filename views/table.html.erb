@@ -1,0 +1,48 @@
+<div>
+  <h1 style="margin-bottom: 0px; "><%= params[:id] %></h1>
+  <h2 style="margin-top: 0px; "><%=h @all_columns.inspect %></h2>
+  
+  <% @columns.each_with_index do |col, index| %>
+  <table id="dataTable<%= index %>" summary="<%=h col %>">
+  	<caption><%=h col %></caption>
+    <thead>
+    <% @top_values[col][0..0].each do |hash| %>
+      <tr>
+  			<td>weeks ago</td>
+  			<% (0..@max_cols).to_a.reverse.each do |val| %>
+  			<th id="<%= col %>_<%= val %>"><%= val %></th>
+  		  <% end %>
+      </tr>
+    <% end %>
+    </thead>
+  	<tbody>
+    <% @top_values[col].each do |hash| %>
+      <tr>
+  			<th headers="members"><%=h hash.keys.first || 'nil' %></th>
+  			<% (0..@max_cols).to_a.reverse.each do |val| %>
+  			<td headers="<%= col %>_<%= val %>"><%=h hash.values.first[val.to_s] || 0 %></td>
+  		  <% end %>
+      </tr>
+    <% end %>
+  	</tbody>
+  </table>
+	<% unless @top_values[col].empty? %>
+    <div width="200" height="200" style="display: block; float: left; ">
+    <canvas id="chart<%= index %>0" 
+        class="fgCharting_src-dataTable<%= index %>_type-additiveBar" 
+        width="200" height="200"></canvas>
+    </div>
+    <div width="200" height="200" style="display: block; float: left; ">
+    <canvas id="chart<%= index %>0" 
+        class="fgCharting_src-dataTable<%= index %>_type-line" 
+        width="200" height="200"></canvas>
+    </div>
+    <div width="200" height="200" style="display: block; float: left; ">
+    <canvas id="chart<%= index %>1" 
+        class="fgCharting_src-dataTable<%= index %>_type-pie" 
+        width="200" height="200"></canvas>
+    </div>    
+    <br style="clear: both; " class="clearfix" />
+  <% end %>
+  <% end %>
+</div>

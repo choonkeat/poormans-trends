@@ -1,0 +1,24 @@
+PoormansTrends
+============
+
+Plug and play trend visualisation for your data.
+
+
+Example
+=======
+# Simply include the module "Poormans::Trends" in your controller
+# and it will gain a self-sufficient action "poormans_trends"
+
+class HelloController < ApplicationController
+  include Poormans::Trends
+end
+
+# If you need to protect the action, feel free to add before_filter 
+# or use any necessary mechanism
+
+class HelloController < ApplicationController
+  include Poormans::Trends
+  before_filter :authenticate, :only => :poormans_trends
+end
+
+Copyright (c) 2008 Chew Choon Keat, released under the MIT license

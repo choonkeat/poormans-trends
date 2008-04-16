@@ -1,0 +1,1 @@
+require 'poormans_trends'
