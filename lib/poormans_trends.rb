@@ -44,7 +44,7 @@ module Poormans
           @columns.each do |col|
             @top_values[col] = klass.find(:all, {
               :select => "COUNT(*) as #{col}_count, #{col}",
-              :conditions => "DATEDIFF(NOW(), #{date_col}) < 8 ",
+              :conditions => ["FLOOR(DATEDIFF(NOW(), #{date_col}) / 7) <= ?", @max_cols],
               :group => col,
               :order => "#{col}_count DESC",
               :limit => @max_rows,

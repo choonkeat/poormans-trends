@@ -9,7 +9,7 @@
     <% @top_values[col][0..0].each do |hash| %>
       <tr>
   			<td>weeks ago</td>
-  			<% (0..@max_cols-1).to_a.reverse.each do |val| %>
+  			<% (0..@max_cols).to_a.reverse.each do |val| %>
   			<th id="<%= col %>_<%= val %>"><%= val %></th>
   		  <% end %>
       </tr>
@@ -19,7 +19,7 @@
     <% @top_values[col].each do |hash| %>
       <tr>
   			<th headers="members"><%=h hash.keys.first || 'nil' %></th>
-  			<% (0..@max_cols-1).to_a.reverse.each do |val| %>
+  			<% (0..@max_cols).to_a.reverse.each do |val| %>
   			<td headers="<%= col %>_<%= val %>"><%=h hash.values.first[val.to_s] || 0 %></td>
   		  <% end %>
       </tr>
