@@ -72,7 +72,8 @@ module Poormans
         }
       end
     rescue
-      render :text => "<pre>ERROR: " + $!.to_s + "\n\n" + $!.backtrace.join("\n") + "</pre>"
+      @classname=params[:id]
+      render :file => File.join(File.dirname(__FILE__), '..', 'views', 'error.html.erb')
     end
   end
 end
