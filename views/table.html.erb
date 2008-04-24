@@ -37,11 +37,13 @@
         class="fgCharting_src-dataTable<%= index %>_type-line" 
         width="200" height="200"></canvas>
     </div>
-    <div width="200" height="200" style="display: block; float: left; ">
-    <canvas id="chart<%= index %>1" 
-        class="fgCharting_src-dataTable<%= index %>_type-pie" 
-        width="200" height="200"></canvas>
-    </div>    
+    <% unless col == '_total_' %>
+      <div width="200" height="200" style="display: block; float: left; ">
+      <canvas id="chart<%= index %>1"
+          class="fgCharting_src-dataTable<%= index %>_type-pie"
+          width="200" height="200"></canvas>
+      </div>
+    <% end %>
     <br style="clear: both; " class="clearfix" />
   <% end %>
   <% end %>
