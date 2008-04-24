@@ -85,7 +85,7 @@ module Poormans
         rel = klass.reflect_on_association(type)
         if rel && i
           sym = rel.klass.respond_to?(:get_cache) ? :get_cache : :find
-          ob = rel.klass.send(sym, i)
+          ob = rel.klass.send(sym, i) rescue i
         else
           i ? i : 'nil'
         end
