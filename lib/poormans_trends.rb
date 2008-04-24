@@ -40,8 +40,11 @@ module Poormans
           type_cols    = @all_columns.select {|x| x =~ /(^type|_type)$/ }
           @columns = foreign_keys + type_cols
           @top_values = {}
+          @ass_lookup = {}
+          @ass_lookup['_total_'] = Proc.new { |i| 'Total' }
         
           @columns.each do |col|
+            @ass_lookup[col] = create_lookup(klass, col)
             @top_values[col] = klass.find(:all, {
               :select => "COUNT(*) as #{col}_count, #{col}",
               :conditions => ["FLOOR(DATEDIFF(NOW(), #{date_col}) / 7) <= ?", @max_cols],
@@ -75,5 +78,19 @@ module Poormans
       @classname=params[:id]
       render :file => File.join(File.dirname(__FILE__), '..', 'views', 'error.html.erb')
     end
+
+    def create_lookup(klass, colname)
+      Proc.new do |i|
+        type = colname.gsub(/_id$/, '').to_sym
+        rel = klass.reflect_on_association(type)
+        if rel && i
+          sym = rel.klass.respond_to?(:get_cache) ? :get_cache : :find
+          ob = rel.klass.send(sym, i)
+        else
+          i ? i : 'nil'
+        end
+      end
+    end
+
   end
 end

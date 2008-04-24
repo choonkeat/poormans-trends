@@ -1,7 +1,7 @@
 <div>
   <h1 style="margin-bottom: 0px; "><%= params[:id] %></h1>
   <h2 style="margin-top: 0px; "><%=h @all_columns.inspect %></h2>
-  
+
   <% @columns.each_with_index do |col, index| %>
   <table id="dataTable<%= index %>" summary="<%=h col %>">
   	<caption><%=h col %></caption>
@@ -18,7 +18,7 @@
   	<tbody>
     <% @top_values[col].each do |hash| %>
       <tr>
-  			<th headers="members"><%=h hash.keys.first || 'nil' %></th>
+        <th headers="members"><%= h(@ass_lookup[col].call(hash.keys.first)) %></th>
   			<% (0..@max_cols).to_a.reverse.each do |val| %>
   			<td headers="<%= col %>_<%= val %>"><%=h hash.values.first[val.to_s] || 0 %></td>
   		  <% end %>
